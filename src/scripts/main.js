@@ -43,13 +43,13 @@ function updateStartButton() {
 }
 
 function renderTable() {
-  const state = game.getState();
   const rows = document.querySelectorAll('.field-row');
 
   for (let i = 0; i < 4; i++) {
     const cells = rows[i].querySelectorAll('.field-cell');
 
     for (let j = 0; j < 4; j++) {
+      const state = game.getState();
       const value = state[i][j];
 
       cells[j].textContent = value === 0 ? '' : value;
@@ -118,7 +118,6 @@ window.addEventListener('touchend', (e) => {
   const deltaX = touch.clientX - touchStartX;
   const deltaY = touch.clientY - touchStartY;
 
-  // визначаємо, куди був свайп
   if (Math.abs(deltaX) > Math.abs(deltaY)) {
     if (deltaX > 0) {
       game.moveRight();
@@ -133,7 +132,6 @@ window.addEventListener('touchend', (e) => {
     }
   }
 
-  // оновлюємо UI
   renderTable();
   updateScore();
   updateMessage();

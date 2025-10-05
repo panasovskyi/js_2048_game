@@ -75,8 +75,8 @@ class Game {
       return false;
     }
 
-    for (let i = 0; i < this.size; i++) {
-      for (let j = 0; j < this.size; j++) {
+    for (let i = 0; i < 4; i++) {
+      for (let j = 0; j < 4; j++) {
         if (
           (j < 3 && board[i][j] === board[i][j + 1]) ||
           (i < 3 && board[i][j] === board[i + 1][j])
@@ -90,15 +90,18 @@ class Game {
   }
 
   postMoveCheck(isMoved) {
-    if (this.isVictory()) {
+    const victory = this.state.flat().includes(2048);
+    const defeat = this.noMovesCheck();
+
+    if (this.state.flat().includes(2048)) {
       this.status = 'win';
     }
 
-    if (isMoved) {
+    if (isMoved && !victory) {
       this.addRandomTile();
     }
 
-    if (this.noMovesCheck()) {
+    if (defeat) {
       this.status = 'lose';
     }
   }
@@ -123,7 +126,7 @@ class Game {
         }
       }
 
-      while (row.length < this.size) {
+      while (row.length < 4) {
         row.push(0);
       }
 
