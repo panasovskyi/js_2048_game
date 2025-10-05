@@ -136,3 +136,11 @@ window.addEventListener('touchend', (e) => {
   updateScore();
   updateMessage();
 });
+
+window.addEventListener(
+  'touchmove',
+  (e) => {
+    e.preventDefault();
+  },
+  { passive: false },
+);
