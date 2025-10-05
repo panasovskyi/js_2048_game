@@ -22,10 +22,10 @@ class Game {
    */
   constructor(initialState) {
     this.state = initialState ?? [
-      [0, 80, 1024, 90],
-      [0, 70, 20, 30],
-      [50, 60, 10, 40],
-      [0, 0, 100, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
     ];
     this.status = 'idle';
     this.score = 0;
