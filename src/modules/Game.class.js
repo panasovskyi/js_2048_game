@@ -22,10 +22,10 @@ class Game {
    */
   constructor(initialState) {
     this.state = initialState ?? [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
+      [0, 80, 1024, 90],
+      [0, 70, 20, 30],
+      [50, 60, 10, 40],
+      [0, 0, 100, 0],
     ];
     this.status = 'idle';
     this.score = 0;
@@ -44,7 +44,7 @@ class Game {
       }
     }
 
-    if (emptyTileCoords.length === 0) {
+    if (!emptyTileCoords.length) {
       return;
     }
 
@@ -55,7 +55,7 @@ class Game {
   }
 
   transpose(board) {
-    const transposedBoard = Array.from({ length: this.size }, () => []);
+    const transposedBoard = [[], [], [], []];
 
     for (let i = 0; i < board.length; i++) {
       for (let j = 0; j < board[i].length; j++) {
@@ -75,8 +75,8 @@ class Game {
       return false;
     }
 
-    for (let i = 0; i < 4; i++) {
-      for (let j = 0; j < 4; j++) {
+    for (let i = 0; i < this.size; i++) {
+      for (let j = 0; j < this.size; j++) {
         if (
           (j < 3 && board[i][j] === board[i][j + 1]) ||
           (i < 3 && board[i][j] === board[i + 1][j])
@@ -91,9 +91,8 @@ class Game {
 
   postMoveCheck(isMoved) {
     const victory = this.state.flat().includes(2048);
-    const defeat = this.noMovesCheck();
 
-    if (this.state.flat().includes(2048)) {
+    if (victory) {
       this.status = 'win';
     }
 
@@ -101,7 +100,7 @@ class Game {
       this.addRandomTile();
     }
 
-    if (defeat) {
+    if (this.noMovesCheck()) {
       this.status = 'lose';
     }
   }
